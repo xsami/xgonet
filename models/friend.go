@@ -34,11 +34,9 @@ func FindUserFriends(friends []Friend, user User) []User {
 
 		friendUser, err := FindUserByID(GetUserList(), friendID)
 		if err != nil {
-			log.Fatal("FindUserFriends failed.", err) // As couldn't find the user
+			log.Fatal("FindUserFriends failed.", err) // As couldn't find the user, or the user isn't active
 		} else {
-			if friendUser.Active { // Only add active users
-				resultUsers = append(resultUsers, friendUser)
-			}
+			resultUsers = append(resultUsers, friendUser)
 		}
 	}
 

@@ -99,7 +99,7 @@ func FilterUsers(users []User, evaluator func(u User) bool) []User {
 
 	resultArray := []User{}
 	for _, user := range users {
-		if evaluator(user) {
+		if evaluator(user) && user.Active {
 			resultArray = append(resultArray, user)
 		}
 	}
