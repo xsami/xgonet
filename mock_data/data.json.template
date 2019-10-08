@@ -1,0 +1,31 @@
+/* This file contains the template of the JSON configuration used to run the application with the requested information */
+{
+    "users": [
+        {
+            "id": 1,
+            "username": "xgonet",
+            "first_name": "go",
+            "last_name": "lang",
+            "email": "xgonet@go.com",
+            "gender": "Undefined",
+            "active": true
+        },
+        {
+            "id": 2,
+            "username": "haskell01",
+            "first_name": "haskell",
+            "last_name": "lang",
+            "email": "xhaskell01@haskell.com",
+            "gender": "Undefined",
+            "active": true
+        }
+    ],
+    "friends": [
+        {
+            "id": 1,
+            "from_id": 1,
+            "to_id": 2,
+            "accepted": true
+        }
+    ]
+}
