@@ -1,4 +1,5 @@
-[{
+{ "users":
+  [{
     "id": 1,
     "username": "mhallihan0",
     "first_name": "Meggie",
@@ -698,4 +699,13 @@
     "last_name": "MacGillreich",
     "email": "cmacgillreich2r@abc.net.au",
     "gender": "Male"
-  }]
+  }],
+  "friends": [
+    {
+      "id": 1,
+      "from_id": 1,
+      "to_id": 10,
+      "status_id": 1
+    }
+  ]
+}
