@@ -7,7 +7,7 @@
             "first_name": "go",
             "last_name": "lang",
             "email": "xgonet@go.com",
-            "gender": "Undefined",
+            "gender": "U",
             "active": true
         },
         {
@@ -16,7 +16,7 @@
             "first_name": "haskell",
             "last_name": "lang",
             "email": "xhaskell01@haskell.com",
-            "gender": "Undefined",
+            "gender": "U",
             "active": true
         }
     ],

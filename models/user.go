@@ -9,6 +9,7 @@ type User struct {
 	FirstName string `json:"first_name" bson:"first_name"`
 	LastName  string `json:"last_name" bson:"last_name"`
 	Email     string `json:"email" bson:"email"`
+	Gender    string `json:"gender" bson:"json"`
 	Active    bool   `json:"active" bson:"active"`
 }
 
@@ -68,6 +69,15 @@ func FindUsersByLastName(users []User, lastName string) []User {
 
 	return FilterUser(users, func(u User) bool {
 		return u.LastName == lastName
+	})
+
+}
+
+// FindUsersByGender return a slice of users with the given gender
+func FindUsersByGender(users []User, gender string) []User {
+
+	return FilterUser(users, func(u User) bool {
+		return u.Gender == gender
 	})
 
 }
