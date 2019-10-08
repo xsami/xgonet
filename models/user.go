@@ -9,14 +9,14 @@ type User struct {
 	FirstName string `json:"first_name" bson:"first_name"`
 	LastName  string `json:"last_name" bson:"last_name"`
 	Email     string `json:"email" bson:"email"`
-	Gender    string `json:"gender" bson:"json"`
+	Gender    string `json:"gender" bson:"gender"`
 	Active    bool   `json:"active" bson:"active"`
 }
 
 // FindUserByID return the user with the given ID
 func FindUserByID(users []User, id int) (User, error) {
 
-	resultUsers := FilterUser(users, func(u User) bool {
+	resultUsers := FilterUsers(users, func(u User) bool {
 		return u.ID == id
 	})
 
@@ -30,7 +30,7 @@ func FindUserByID(users []User, id int) (User, error) {
 // FindUserByUsername return the user with the given username
 func FindUserByUsername(users []User, username string) (User, error) {
 
-	resultUsers := FilterUser(users, func(u User) bool {
+	resultUsers := FilterUsers(users, func(u User) bool {
 		return u.Username == username
 	})
 
@@ -44,7 +44,7 @@ func FindUserByUsername(users []User, username string) (User, error) {
 // FindUserByEmail return the user with the given email
 func FindUserByEmail(users []User, email string) (User, error) {
 
-	resultUsers := FilterUser(users, func(u User) bool {
+	resultUsers := FilterUsers(users, func(u User) bool {
 		return u.Email == email
 	})
 
@@ -58,7 +58,7 @@ func FindUserByEmail(users []User, email string) (User, error) {
 // FindUsersByFirstName return a slice of users with the given firstName
 func FindUsersByFirstName(users []User, firstName string) []User {
 
-	return FilterUser(users, func(u User) bool {
+	return FilterUsers(users, func(u User) bool {
 		return u.FirstName == firstName
 	})
 
@@ -67,7 +67,7 @@ func FindUsersByFirstName(users []User, firstName string) []User {
 // FindUsersByLastName return a slice of users with the given lastName
 func FindUsersByLastName(users []User, lastName string) []User {
 
-	return FilterUser(users, func(u User) bool {
+	return FilterUsers(users, func(u User) bool {
 		return u.LastName == lastName
 	})
 
@@ -76,7 +76,7 @@ func FindUsersByLastName(users []User, lastName string) []User {
 // FindUsersByGender return a slice of users with the given gender
 func FindUsersByGender(users []User, gender string) []User {
 
-	return FilterUser(users, func(u User) bool {
+	return FilterUsers(users, func(u User) bool {
 		return u.Gender == gender
 	})
 
@@ -85,17 +85,17 @@ func FindUsersByGender(users []User, gender string) []User {
 // FindActiveUsers return a slice of user with status active = true
 func FindActiveUsers(users []User) []User {
 
-	return FilterUser(users, func(u User) bool {
+	return FilterUsers(users, func(u User) bool {
 		return u.Active == true
 	})
 
 }
 
-// FilterUser return a slice of type User.
+// FilterUsers return a slice of type User.
 // Given a slice of type User, this function evaluate the condition
 // that is passed as parameter and return a new slice of slice
 // where the condition meet the evaluator
-func FilterUser(users []User, evaluator func(u User) bool) []User {
+func FilterUsers(users []User, evaluator func(u User) bool) []User {
 
 	resultArray := []User{}
 	for _, user := range users {
@@ -105,4 +105,11 @@ func FilterUser(users []User, evaluator func(u User) bool) []User {
 	}
 
 	return resultArray
+}
+
+// GetUserList return a slice with all the users
+// from the mock data file
+func GetUserList() []User {
+
+	return []User{}
 }
