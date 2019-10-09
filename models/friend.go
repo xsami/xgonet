@@ -79,7 +79,6 @@ func FindTwoUserRelationShip(friends []Friend, userA User, userB User, counter i
 	userAFriends := FindUserFriends(friends, userA)
 	userBFriends := FindUserFriends(friends, userB)
 
-	// TODO: fix circular relationship. Threshold to exit the application
 	for _, uA := range userAFriends {
 		for _, uB := range userBFriends {
 			return FindTwoUserRelationShip(friends, uA, uB, counter+1)
