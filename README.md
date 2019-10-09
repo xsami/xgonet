@@ -29,7 +29,7 @@ The application contain a diverse amount of functionalities which can be perform
 2. `--data=<test_data.json>`. This is the path and the name of the file that will be loaded to be used as mock data.
 3. `--func=<sample>`. These are that functions that can be performed.
 4. `--param=<params>`. This is the data that will be sent to filer.
-5. `--depth=<number>`. The depeth of the search and will depend on the functionalty requested.
+5. `--depth=<number>`. The depeth of the search and will depend on the functionalty requested. The default value is 10 and contain the max depth of search made by to code to teremine if two users are related
 6. `--debug=<boolean>`. Default value is **false**, you must set this equal to **true** so the program can display time and logs in the execution.
 
 ### Project Requirements
