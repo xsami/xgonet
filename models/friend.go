@@ -2,6 +2,11 @@ package models
 
 import "log"
 
+// SearchTreshHold contain the depth amount of search
+// that will use the application to complete the FindTwoUserRelationShip
+// as this can enter into a circular recursion that may be a bit isssue
+const SearchTreshHold = 10
+
 // Friend struct contains the friend relationship
 type Friend struct {
 	ID         int  `json:"id" bson:"_id"`
@@ -47,8 +52,8 @@ func FindUserFriends(friends []Friend, user User) []User {
 func ValidateFriendShip(friends []Friend, userIDA int, userIDB int) bool {
 
 	resultFriends := FilterFriends(friends, func(f Friend) bool {
-		return (f.UserIDFrom == userIDA && f.UserIDTo == userIDB) ||
-			(f.UserIDFrom == userIDB && f.UserIDTo == userIDA)
+		return ((f.UserIDFrom == userIDA && f.UserIDTo == userIDB) ||
+			(f.UserIDFrom == userIDB && f.UserIDTo == userIDA))
 	})
 
 	if len(resultFriends) > 0 {
@@ -62,6 +67,10 @@ func ValidateFriendShip(friends []Friend, userIDA int, userIDB int) bool {
 //
 // counter parameter must always start passing 0 by parameter
 func FindTwoUserRelationShip(friends []Friend, userA User, userB User, counter int) ([]User, int) {
+
+	if counter >= SearchTreshHold {
+		return []User{}, -1
+	}
 
 	if ValidateFriendShip(friends, userA.ID, userB.ID) {
 		return []User{}, counter // TODO: hold the users where the relationship begins
