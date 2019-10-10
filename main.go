@@ -32,11 +32,13 @@ func init() {
 
 func main() {
 
+	// Parse the args passed on the program execution
 	if _, err := flags.ParseArgs(&opts, os.Args); err != nil {
 		fmt.Fprint(os.Stderr, err.Error()+"\n")
 		os.Exit(1)
 	}
 
+	// Parse the mock data
 	if err := LoadModel(opts.Data, &data); err != nil {
 		fmt.Fprint(os.Stderr, err.Error()+"\n")
 		os.Exit(1)
