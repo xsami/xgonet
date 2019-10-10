@@ -23,14 +23,36 @@ To run the project just enter to the project main directory and run the command:
 
 #### Commands
 
-The application contain a diverse amount of functionalities which can be performed by passing the correct parameters to it. Down here we describe the commands allowed by the current version:
+The application contain a diverse amount of functionalities which can be performed by passing the correct parameters to it. Down here we describe the commands allowed by the current version
 
-1. `--help`. This parementer display all the commands that can be performed.
+1. `--help`. This parameter display all the commands that can be performed.
 2. `--data=<test_data.json>`. This is the path and the name of the file that will be loaded to be used as mock data.
-3. `--func=<sample>`. These are that functions that can be performed.
-4. `--param=<params>`. This is the data that will be sent to filer.
+3. `--func=<sample>`. These are functions that can be performed by the application. More details about this in the **Functions** section
+4. `--param=<params>`. These are the parameters passed to the function that will be called. More details about this in the **Functions** section 
 5. `--treshold=<number>`. The deepest amount of the search. The default value is 10 and contain the max depth of search made by to code to determinate if two users are related
 6. `--debug=<boolean>`. Default value is **false**, you must set this equal to **true** so the program can display time and logs in the execution.
+
+##### Example on Mac OS X
+```
+$ go build .
+$ ./xgonet -h
+$ ./xgonet -d true -D /Users/<your_user>/go/src/github.com/xsami/xgonet/mock_data/test_data1.json -f FindTwoUserRelationShip -p username1:mhallihan0 -p username2:mbrereton1
+```
+
+##### Example on Windows
+Note that for windows build the argument prefix is `/` instead of `-`
+```
+$ go build .
+$ xgonet.exe /h
+$ xgonet.exe /d true /D C:\Users\<your_user>\go\src\github.com\xsami\xgonet\mock_data\test_data1.json /f FindTwoUserRelationShip /p username1:mhallihan0 /p username2:mbrereton1
+```
+
+### Functions
+
+ Function   |      Parameter      |  Type |  Description 
+------------|---------------------|-------|---------------
+| FindTwoUserRelationShip |  username1, username2 | string, string | Find if 2 users can have related friends and display this relationship |
+
 
 ### Project Requirements
 
