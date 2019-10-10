@@ -1,11 +1,29 @@
 package main
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"io/ioutil"
+	"os"
+)
 
-func LoadModel(data []byte, model interface{}) error {
+// LoadModel does what it say, open a json file and parse a file with the given structure
+func LoadModel(filePath string, model *UFStruct) error {
 
-	err := json.Unmarshal([]byte(data), &model)
+	jsonFile, err := os.Open(filePath)
+	if err != nil {
+		return err
+	}
+	defer jsonFile.Close()
 
-	return err
+	byteValue, err := ioutil.ReadAll(jsonFile)
+	if err != nil {
+		return err
+	}
 
+	err = json.Unmarshal(byteValue, &model)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
