@@ -44,7 +44,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Printf("%+v\n\n%+v", opts, data)
+	fmt.Printf("%+v\n\n%+v\n", data, opts)
 }
 
 // GetOptions return the option with the paremeter passed
