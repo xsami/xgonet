@@ -8,14 +8,8 @@ import (
 	"time"
 
 	flags "github.com/jessevdk/go-flags"
-	model "github.com/xsami/xgonet/models"
+	loader "github.com/xsami/xgonet/loader"
 )
-
-// UFStruct is the structure to parse the mock file with friend and user model
-type UFStruct struct {
-	Users   []model.User   `json:"users"`
-	Friends []model.Friend `json:"friends"`
-}
 
 var (
 	opts struct {
@@ -25,7 +19,7 @@ var (
 		Param    map[string]string `short:"p" long:"param" description:"parameters which is a map from string to string"`
 		Treshold uint              `short:"t" long:"treshold" description:"treshold of max amount of iterations"`
 	}
-	data UFStruct
+	data loader.UFStruct
 )
 
 func init() {
@@ -41,13 +35,13 @@ func main() {
 	}
 
 	// Parse the mock data
-	if err := LoadModel(opts.Data, &data); err != nil {
+	if err := loader.LoadModel(opts.Data, &data); err != nil {
 		fmt.Fprint(os.Stderr, err.Error()+"\n")
 		os.Exit(1)
 	}
 
 	if opts.Debug {
-		// fmt.Printf("%+v\n\n%+v\n", data, opts)
+		fmt.Printf("%+v\n\n%+v\n", data, opts)
 	}
 
 	log.Fatal(execFunction()) // Execute the called function

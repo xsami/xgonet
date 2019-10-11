@@ -1,6 +1,8 @@
 package models
 
-import "log"
+import (
+	"log"
+)
 
 // Friend struct contains the friend relationship
 type Friend struct {
@@ -34,7 +36,7 @@ func FindUserFriends(friends []Friend, user User) []User {
 
 		friendUser, err := FindUserByID(GetUserList(), friendID)
 		if err != nil {
-			log.Fatal("FindUserFriends failed.", err) // As couldn't find the user, or the user isn't active
+			log.Fatal("FindUserFriends failed. ", err) // As couldn't find the user, or the user isn't active
 		} else {
 			resultUsers = append(resultUsers, friendUser)
 		}
