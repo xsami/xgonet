@@ -29,7 +29,7 @@ The application contain a diverse amount of functionalities which can be perform
 2. `--data=<test_data.json>`. This is the path and the name of the file that will be loaded to be used as mock data.
 3. `--func=<sample>`. These are functions that can be performed by the application. More details about this in the **Functions** section
 4. `--param=<params>`. These are the parameters passed to the function that will be called. More details about this in the **Functions** section 
-5. `--treshold=<number>`. The deepest amount of the search. The default value is 10 and contain the max depth of search made by to code to determinate if two users are related
+5. `--treshold=<number>`. The deepest amount of the search. The default value is 0 (which mean infinite) and contain the max depth of search made by to code to determinate if two users are related.
 6. `--debug=<boolean>`. Default value is **false**, you must set this equal to **true** so the program can display time and logs in the execution.
 
 ##### Example on Mac OS X
@@ -49,9 +49,12 @@ $ xgonet.exe /d true /D C:\Users\<your_user>\go\src\github.com\xsami\xgonet\mock
 
 ### Functions
 
+This section contain the functions that can be called in this application, which is the main purpose of this application. Find in the table below which functionality you want to use: 
+
+
  Function   |      Parameter      |  Type |  Description 
 ------------|---------------------|-------|---------------
-| FindTwoUserRelationShip |  username1, username2 | string, string | Find if 2 users can have related friends and display this relationship |
+| FindTwoUserRelationShip |  username1, username2 | string, string | Find if 2 users can have related friends and display this relationship. **Note**: the treshold on this function means the following: if `0` there is no limit on the recursion search. `1` means that only look if they are direct friends. `2` means that look if at least have 1 friend related. `3` means that they have a friend that have a friend in common, and so on |
 
 
 ### Project Requirements
