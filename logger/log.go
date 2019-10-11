@@ -22,7 +22,7 @@ func Log(functionName string, args ...interface{}) {
 	if len(args) > 0 {
 		fmt.Println("Running the following commands:")
 	}
-	for v := range args {
+	for _, v := range args {
 		fmt.Printf("%+v\n", v)
 	}
 	fmt.Println(separator)
