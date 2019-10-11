@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	model "github.com/xsami/xgonet/models"
 )
@@ -12,9 +13,23 @@ const (
 	FindTwoUserRelationShip = "findtwouserrelationship"
 )
 
+func fmtDuration(d time.Duration) {
+	d = d.Round(time.Minute)
+	h := d / time.Hour
+	d -= h * time.Hour
+	m := d / time.Minute
+	fmt.Printf("%02d:%02d", h, m)
+}
+
 // execFunction try to execute the functions that
 // can be executed by the users
 func execFunction() error {
+
+	modTime := time.Now().Round(0).Add(-(3600 + 60 + 45) * time.Second)
+	since := time.Since(modTime)
+	fmt.Println("Start: ", since)
+	defer fmtDuration(since)
+
 	var (
 		functionName string
 		parameters   map[string]string
@@ -40,7 +55,8 @@ func execFunction() error {
 
 		fmt.Println(resultUser)
 	default:
-		return fmt.Errorf("Function: %v wasn't found", opts.Func)
+		return fmt.Errorf("Function: %v wasn't found", functionName)
 	}
+
 	return nil
 }
