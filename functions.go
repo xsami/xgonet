@@ -18,11 +18,11 @@ func fmtDuration(d time.Duration) {
 	h := d / time.Hour
 	d -= h * time.Hour
 	m := d / time.Minute
-	fmt.Printf("%02d:%02d", h, m)
+	fmt.Printf("End: %02d:%02d\n", h, m)
 }
 
 // execFunction try to execute the functions that
-// can be executed by the users
+// is passed by parameter in the flag "function" (opst.Func)
 func execFunction() error {
 
 	modTime := time.Now().Round(0).Add(-(3600 + 60 + 45) * time.Second)
@@ -51,7 +51,7 @@ func execFunction() error {
 			return err
 		}
 
-		resultUser, _ := model.FindTwoUserRelationShip(data.Friends, userA, userB, 0, opts.Treshold)
+		resultUser, _ := model.FindTwoUserRelationShip(model.FriendMap, userA, userB, 0, opts.Treshold)
 
 		fmt.Println(resultUser)
 	default:

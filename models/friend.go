@@ -94,7 +94,7 @@ func ValidateFriendShip(friends []Friend, userIDA int, userIDB int) bool {
 // FindTwoUserRelationShip check how can two users be releated
 //
 // counter parameter must always start passing 0 by parameter
-func FindTwoUserRelationShip(friends []Friend, userA User, userB User, counter int, treshold uint) (resultArray []User, resultCounter int) {
+func FindTwoUserRelationShip(friends map[RelateFriend]bool, userA User, userB User, counter int, treshold uint) (resultArray []User, resultCounter int) {
 
 	if counter == 0 {
 		logger.Log("FindTwoUserRelationShip", FriendMap)
@@ -104,7 +104,9 @@ func FindTwoUserRelationShip(friends []Friend, userA User, userB User, counter i
 		return []User{}, -1
 	}
 
-	if ValidateFriendShip(friends, userA.ID, userB.ID) {
+	tmpRS := NewRelatedFriend(userA.ID, userB.ID)
+
+	if FriendMap[tmpRS] {
 		if resultArray != nil {
 			resultArray = append(resultArray, userA)
 		} else {
@@ -113,28 +115,9 @@ func FindTwoUserRelationShip(friends []Friend, userA User, userB User, counter i
 		return resultArray, counter
 	}
 
-	userAFriends := FindUserFriends(friends, userA)
-	userBFriends := FindUserFriends(friends, userB)
+	// for k1, v1 := range FriendMap {
 
-	for _, uA := range userAFriends {
-		flagFoundFriend := false
-		for _, uB := range userBFriends {
-			arrK, c := FindTwoUserRelationShip(friends, uA, uB, counter+1, treshold)
-			if c != 1 {
-				if resultArray != nil {
-					resultArray = append(resultArray, arrK...)
-				} else {
-					resultArray = make([]User, len(arrK))
-					copy(arrK, resultArray)
-				}
-				flagFoundFriend = true
-				break
-			}
-		}
-		if flagFoundFriend {
-			break
-		}
-	}
+	// }
 
 	return resultArray, 0
 }
