@@ -4,8 +4,13 @@ import (
 	"log"
 )
 
-// FriendList contains all the friends request
-var FriendList []Friend
+// Global variable definition
+var (
+	// FriendList contains all the friends request
+	FriendList []Friend
+	//FriendMap contains a map of the relationship between the users
+	FriendMap map[RelateFriend]bool
+)
 
 // Friend struct contains the friend relationship
 type Friend struct {
@@ -13,6 +18,38 @@ type Friend struct {
 	UserIDFrom int  `json:"from_id" bson:"from_id"`
 	UserIDTo   int  `json:"to_id" bson:"to_id"`
 	Accepted   bool `json:"accepted" bson:"accepted"`
+}
+
+type RelateFriend struct {
+	UserIDA int
+	UserIDB int
+}
+
+func BuildFriendMap(friends []Friend) {
+
+	if FriendMap == nil {
+		return
+	}
+
+	acceptedFriend := FilterFriends(friends, func(f Friend) bool {
+		return true
+	})
+	FriendMap = make(map[RelateFriend]bool, len(acceptedFriend))
+
+	for _, value := range acceptedFriend {
+		rFriend := NewRelatedFriend(value.UserIDFrom, value.UserIDTo)
+		FriendMap[rFriend] = value.Accepted
+	}
+}
+
+func NewRelatedFriend(u1, u2 int) RelateFriend {
+	uA, uB := u1, u2
+	if u1 < u2 {
+		uA, uB = u2, u1
+	}
+	return RelateFriend{
+		UserIDA: uA,
+		UserIDB: uB}
 }
 
 // FindUserFriends return a slice of type User with the friends info
