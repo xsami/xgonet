@@ -2,18 +2,15 @@ package models
 
 import "fmt"
 
-// UserList contain a list with all the users
-var UserList []User
-
 // User is the struct that contain the information of a user
 type User struct {
-	ID        int    `json:"id" bson:"_id"`
-	Username  string `json:"username" bson:"username" gorm:"unique_index:idx_name_code"`
-	FirstName string `json:"first_name" bson:"first_name"`
-	LastName  string `json:"last_name" bson:"last_name"`
-	Email     string `json:"email" bson:"email"`
-	Gender    string `json:"gender" bson:"gender"`
-	Active    bool   `json:"active" bson:"active"`
+	ID        int    `json:"id"`
+	Username  string `json:"username"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	Email     string `json:"email"`
+	Gender    string `json:"gender"`
+	Active    bool   `json:"active"`
 }
 
 // FindUserByID return the user with the given ID

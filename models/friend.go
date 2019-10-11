@@ -2,22 +2,16 @@ package models
 
 import (
 	"log"
-)
 
-// Global variable definition
-var (
-	// FriendList contains all the friends request
-	FriendList []Friend
-	//FriendMap contains a map of the relationship between the users
-	FriendMap map[RelateFriend]bool
+	logger "github.com/xsami/xgonet/logger"
 )
 
 // Friend struct contains the friend relationship
 type Friend struct {
-	ID         int  `json:"id" bson:"_id"`
-	UserIDFrom int  `json:"from_id" bson:"from_id"`
-	UserIDTo   int  `json:"to_id" bson:"to_id"`
-	Accepted   bool `json:"accepted" bson:"accepted"`
+	ID         int  `json:"id"`
+	UserIDFrom int  `json:"from_id"`
+	UserIDTo   int  `json:"to_id"`
+	Accepted   bool `json:"accepted"`
 }
 
 type RelateFriend struct {
@@ -25,21 +19,18 @@ type RelateFriend struct {
 	UserIDB int
 }
 
-func BuildFriendMap(friends []Friend) {
-
-	if FriendMap == nil {
-		return
-	}
+func BuildFriendMap(friends []Friend) (resultMap map[RelateFriend]bool) {
 
 	acceptedFriend := FilterFriends(friends, func(f Friend) bool {
 		return true
 	})
-	FriendMap = make(map[RelateFriend]bool, len(acceptedFriend))
+	resultMap = make(map[RelateFriend]bool, len(acceptedFriend))
 
 	for _, value := range acceptedFriend {
 		rFriend := NewRelatedFriend(value.UserIDFrom, value.UserIDTo)
-		FriendMap[rFriend] = value.Accepted
+		resultMap[rFriend] = value.Accepted
 	}
+	return resultMap
 }
 
 func NewRelatedFriend(u1, u2 int) RelateFriend {
@@ -105,12 +96,20 @@ func ValidateFriendShip(friends []Friend, userIDA int, userIDB int) bool {
 // counter parameter must always start passing 0 by parameter
 func FindTwoUserRelationShip(friends []Friend, userA User, userB User, counter int, treshold uint) (resultArray []User, resultCounter int) {
 
+	if counter == 0 {
+		logger.Log("FindTwoUserRelationShip", FriendMap)
+	}
+
 	if counter >= int(treshold) && treshold != 0 {
 		return []User{}, -1
 	}
 
 	if ValidateFriendShip(friends, userA.ID, userB.ID) {
-		resultArray = append(resultArray, userA)
+		if resultArray != nil {
+			resultArray = append(resultArray, userA)
+		} else {
+			resultArray = []User{userA}
+		}
 		return resultArray, counter
 	}
 
@@ -122,7 +121,12 @@ func FindTwoUserRelationShip(friends []Friend, userA User, userB User, counter i
 		for _, uB := range userBFriends {
 			arrK, c := FindTwoUserRelationShip(friends, uA, uB, counter+1, treshold)
 			if c != 1 {
-				resultArray = append(resultArray, arrK...)
+				if resultArray != nil {
+					resultArray = append(resultArray, arrK...)
+				} else {
+					resultArray = make([]User, len(arrK))
+					copy(arrK, resultArray)
+				}
 				flagFoundFriend = true
 				break
 			}
