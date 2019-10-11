@@ -2,11 +2,6 @@ package models
 
 import "log"
 
-// SearchTreshHold contain the depth amount of search
-// that will use the application to complete the FindTwoUserRelationShip
-// as this can enter into a circular recursion that may be a bit isssue
-const SearchTreshHold = 10
-
 // Friend struct contains the friend relationship
 type Friend struct {
 	ID         int  `json:"id" bson:"_id"`
@@ -66,26 +61,36 @@ func ValidateFriendShip(friends []Friend, userIDA int, userIDB int) bool {
 // FindTwoUserRelationShip check how can two users be releated
 //
 // counter parameter must always start passing 0 by parameter
-func FindTwoUserRelationShip(friends []Friend, userA User, userB User, counter int) ([]User, int) {
+func FindTwoUserRelationShip(friends []Friend, userA User, userB User, counter int, treshold uint) (resultArray []User, resultCounter int) {
 
-	if counter >= SearchTreshHold {
+	if counter >= int(treshold) && treshold != 0 {
 		return []User{}, -1
 	}
 
 	if ValidateFriendShip(friends, userA.ID, userB.ID) {
-		return []User{}, counter // TODO: hold the users where the relationship begins
+		resultArray = append(resultArray, userA)
+		return resultArray, counter
 	}
 
 	userAFriends := FindUserFriends(friends, userA)
 	userBFriends := FindUserFriends(friends, userB)
 
 	for _, uA := range userAFriends {
+		flagFoundFriend := false
 		for _, uB := range userBFriends {
-			return FindTwoUserRelationShip(friends, uA, uB, counter+1)
+			arrK, c := FindTwoUserRelationShip(friends, uA, uB, counter+1, treshold)
+			if c != 1 {
+				resultArray = append(resultArray, arrK...)
+				flagFoundFriend = true
+				break
+			}
+		}
+		if flagFoundFriend {
+			break
 		}
 	}
 
-	return []User{}, 0
+	return resultArray, 0
 }
 
 // FilterFriends return a slice of type Friend.

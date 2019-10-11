@@ -82,7 +82,7 @@ func TestFindTwoUserRelationShip(t *testing.T) {
 		Gender:    "M",
 		Active:    true}
 
-	relationShip, counter := FindTwoUserRelationShip(friendList, dummyUserA, dummyUserB, 0)
+	relationShip, counter := FindTwoUserRelationShip(friendList, dummyUserA, dummyUserB, 0, 2)
 
 	t.Logf("Users: %+v and %+v have the following relationship:\n%+v\n\nWith the following amount of iterations: %v", dummyUserA, dummyUserB, relationShip, counter)
 }
