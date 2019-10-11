@@ -47,13 +47,3 @@ func main() {
 
 	fmt.Printf("%+v\n\n%+v\n", data, opts)
 }
-
-// GetOptions return the option with the paremeter passed
-func GetOptions() interface{} {
-	return opts
-}
-
-// GetData return the data value
-func GetData() UFStruct {
-	return data
-}
