@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"math/rand"
 	"os"
 	"time"
@@ -15,8 +14,8 @@ import (
 var (
 	opts struct {
 		Debug    bool              `short:"d" long:"debug" description:"Show debug information"`
-		Data     string            `short:"D" long:"data" description:"Data path (absolute path)"`
-		Func     string            `short:"f" long:"function" description:"Call the specified function"`
+		Data     string            `short:"D" long:"data" description:"Data path (absolute path)" default:"mock_data\\test_data1.json"`
+		Func     string            `short:"f" long:"function" description:"Call the specified function" default:"findtwouserrelationship"`
 		Param    map[string]string `short:"p" long:"param" description:"parameters which is a map from string to string"`
 		Treshold uint              `short:"t" long:"treshold" description:"treshold of max amount of iterations"`
 	}
@@ -48,5 +47,5 @@ func main() {
 		fmt.Printf("%+v\n\n%+v\n", data, opts)
 	}
 
-	log.Fatal(execFunction()) // Execute the called function
+	// log.Fatal(execFunction()) // Execute the called function
 }
