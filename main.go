@@ -9,6 +9,7 @@ import (
 
 	flags "github.com/jessevdk/go-flags"
 	loader "github.com/xsami/xgonet/loader"
+	model "github.com/xsami/xgonet/models"
 )
 
 var (
@@ -39,6 +40,9 @@ func main() {
 		fmt.Fprint(os.Stderr, err.Error()+"\n")
 		os.Exit(1)
 	}
+	// Inject FriendList and UserList
+	model.FriendList = data.Friends
+	model.UserList = data.Users
 
 	if opts.Debug {
 		fmt.Printf("%+v\n\n%+v\n", data, opts)

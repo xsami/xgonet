@@ -4,6 +4,9 @@ import (
 	"log"
 )
 
+// FriendList contains all the friends request
+var FriendList []Friend
+
 // Friend struct contains the friend relationship
 type Friend struct {
 	ID         int  `json:"id" bson:"_id"`
@@ -34,7 +37,7 @@ func FindUserFriends(friends []Friend, user User) []User {
 			friendID = friend.UserIDTo
 		}
 
-		friendUser, err := FindUserByID(GetUserList(), friendID)
+		friendUser, err := FindUserByID(UserList, friendID)
 		if err != nil {
 			log.Fatal("FindUserFriends failed. ", err) // As couldn't find the user, or the user isn't active
 		} else {
@@ -109,11 +112,4 @@ func FilterFriends(friends []Friend, evaluator func(f Friend) bool) []Friend {
 	}
 
 	return resultArray
-}
-
-// GetFriendList return a slice with all the friends
-// from the mock data file
-func GetFriendList() []Friend {
-
-	return []Friend{}
 }

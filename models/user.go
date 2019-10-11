@@ -2,6 +2,9 @@ package models
 
 import "fmt"
 
+// UserList contain a list with all the users
+var UserList []User
+
 // User is the struct that contain the information of a user
 type User struct {
 	ID        int    `json:"id" bson:"_id"`
@@ -105,11 +108,4 @@ func FilterUsers(users []User, evaluator func(u User) bool) []User {
 	}
 
 	return resultArray
-}
-
-// GetUserList return a slice with all the users
-// from the mock data file
-func GetUserList() []User {
-
-	return []User{}
 }
