@@ -10,6 +10,7 @@ import (
 	model "github.com/xsami/xgonet/models"
 )
 
+// UFStruct is the structure to parse the mock file with friend and user model
 type UFStruct struct {
 	Users   []model.User   `json:"users"`
 	Friends []model.Friend `json:"friends"`
