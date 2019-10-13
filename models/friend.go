@@ -104,6 +104,14 @@ func FindTwoUserRelationShip(friends map[RelateFriend]bool, userA User, userB Us
 		return []User{}, -1
 	}
 
+	// TODO: the function should receibe a list with the friends that should be evaluated
+	// that are friend of a x person.
+
+	// TODO: Make a for loop to iterate over the list of friend
+	// and add this block as a functio
+	// TODO: return empty if the list of comparation has been already comparated
+	// and in every comparation check that you're not repeating yourself
+	// if you start repeating yourself then. there's no way userA is friend of userB
 	tmpRS := NewRelatedFriend(userA.ID, userB.ID)
 
 	if FriendMap[tmpRS] {
@@ -114,7 +122,11 @@ func FindTwoUserRelationShip(friends map[RelateFriend]bool, userA User, userB Us
 		}
 		return resultArray, counter
 	}
+	// TODO: end of the for loop
 
+	// TODO: Call a function which give you the ID's of the friends of the friends
+	// in the already passed function so you should call the function again
+	// This must be unique friends and not evaluated comparision already
 	// for k1, v1 := range FriendMap {
 
 	// }
