@@ -804,48 +804,13 @@
     {
       "id": 1,
       "from_id": 1,
-      "to_id": 10,
-      "accepted": true
-    },
-    {
-      "id": 2,
-      "from_id": 1,
-      "to_id": 11,
-      "accepted": false
-    },
-    {
-      "id": 3,
-      "from_id": 11,
-      "to_id": 10,
-      "accepted": true
-    },
-    {
-      "id": 4,
-      "from_id": 2,
-      "to_id": 1,
-      "accepted": true
-    },
-    {
-      "id": 5,
-      "from_id": 10,
-      "to_id": 7,
-      "accepted": false
-    },{
-      "id": 6,
-      "from_id": 1,
-      "to_id": 10,
-      "accepted": true
-    },
-    {
-      "id": 7,
-      "from_id": 7,
       "to_id": 2,
       "accepted": true
     },
     {
-      "id": 8,
-      "from_id": 10,
-      "to_id": 2,
+      "id": 1,
+      "from_id": 3,
+      "to_id": 4,
       "accepted": true
     }
   ]

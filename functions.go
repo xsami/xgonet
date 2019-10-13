@@ -51,9 +51,9 @@ func execFunction() error {
 			return err
 		}
 
-		resultUser, _ := model.FindTwoUserRelationShip(model.FriendMap, userA, userB, 0, opts.Treshold)
+		resultUser, counter := model.FindTwoUserRelationShip(model.FriendMap, make(map[model.RelateFriend]bool, len(model.FriendMap)), userA, []int{userB.ID}, 0, opts.Treshold)
 
-		fmt.Println(resultUser)
+		fmt.Println(resultUser, " - counter: ", counter)
 	default:
 		return fmt.Errorf("Function: %v wasn't found", functionName)
 	}

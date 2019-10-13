@@ -66,25 +66,25 @@ func BenchmarkValidateFriendShip(b *testing.B) {
 
 func TestFindTwoUserRelationShip(t *testing.T) {
 
-	dummyUserA := User{
-		ID:        1,
-		Username:  "xsami",
-		FirstName: "first_name",
-		LastName:  "last_name",
-		Gender:    "M",
-		Active:    true}
+	// dummyUserA := User{
+	// 	ID:        1,
+	// 	Username:  "xsami",
+	// 	FirstName: "first_name",
+	// 	LastName:  "last_name",
+	// 	Gender:    "M",
+	// 	Active:    true}
 
-	dummyUserB := User{
-		ID:        2,
-		Username:  "jhony",
-		FirstName: "first_name",
-		LastName:  "last_name",
-		Gender:    "M",
-		Active:    true}
+	// dummyUserB := User{
+	// 	ID:        2,
+	// 	Username:  "jhony",
+	// 	FirstName: "first_name",
+	// 	LastName:  "last_name",
+	// 	Gender:    "M",
+	// 	Active:    true}
 
-	relationShip, counter := FindTwoUserRelationShip(friendList, dummyUserA, dummyUserB, 0, 2)
+	// relationShip, counter := FindTwoUserRelationShip(friendList, dummyUserA, dummyUserB, 0, 2)
 
-	t.Logf("Users: %+v and %+v have the following relationship:\n%+v\n\nWith the following amount of iterations: %v", dummyUserA, dummyUserB, relationShip, counter)
+	// t.Logf("Users: %+v and %+v have the following relationship:\n%+v\n\nWith the following amount of iterations: %v", dummyUserA, dummyUserB, relationShip, counter)
 }
 
 func BenchmarkFindTwoUserRelationShip(b *testing.B) {

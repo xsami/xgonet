@@ -21,13 +21,15 @@ type RelateFriend struct {
 
 func BuildFriendMap(friends []Friend) (resultMap map[RelateFriend]bool) {
 
-	acceptedFriend := FilterFriends(friends, func(f Friend) bool {
+	acceptedFriend := FilterFriends(friends, func(f Friend) bool { // Filter only by users that are active
 		return true
 	})
+
 	resultMap = make(map[RelateFriend]bool, len(acceptedFriend))
 
 	for _, value := range acceptedFriend {
 		rFriend := NewRelatedFriend(value.UserIDFrom, value.UserIDTo)
+
 		resultMap[rFriend] = value.Accepted
 	}
 	return resultMap
@@ -91,47 +93,71 @@ func ValidateFriendShip(friends []Friend, userIDA int, userIDB int) bool {
 	return false
 }
 
+func GetFriendsID(id int) []int {
+	result := []int{}
+	var tmp int
+	for _, v := range FriendList {
+		if v.Accepted {
+			if v.UserIDFrom == id {
+				tmp = v.UserIDTo
+			} else {
+				tmp = v.UserIDFrom
+			}
+		}
+		result = append(result, tmp)
+	}
+	return result
+}
+
 // FindTwoUserRelationShip check how can two users be releated
 //
 // counter parameter must always start passing 0 by parameter
-func FindTwoUserRelationShip(friends map[RelateFriend]bool, userA User, userB User, counter int, treshold uint) (resultArray []User, resultCounter int) {
+func FindTwoUserRelationShip(friends map[RelateFriend]bool, evaluatedFriendShipt map[RelateFriend]bool, user User, userIDList []int, counter int, treshold uint) (resultArray []User, resultCounter int) {
 
 	if counter == 0 {
 		logger.Log("FindTwoUserRelationShip", FriendMap)
 	}
 
-	if counter >= int(treshold) && treshold != 0 {
+	if counter > int(treshold) && treshold != 0 {
 		return []User{}, -1
 	}
 
-	// TODO: the function should receibe a list with the friends that should be evaluated
-	// that are friend of a x person.
+	flagRepetitions := false
+	possibleFriends := []int{}
+	newPossibleFriends := []int{}
 
-	// TODO: Make a for loop to iterate over the list of friend
-	// and add this block as a functio
-	// TODO: return empty if the list of comparation has been already comparated
-	// and in every comparation check that you're not repeating yourself
-	// if you start repeating yourself then. there's no way userA is friend of userB
-	tmpRS := NewRelatedFriend(userA.ID, userB.ID)
+	for _, uid := range userIDList {
 
-	if FriendMap[tmpRS] {
-		if resultArray != nil {
-			resultArray = append(resultArray, userA)
-		} else {
-			resultArray = []User{userA}
+		tmpRS := NewRelatedFriend(user.ID, uid)
+
+		if !evaluatedFriendShipt[tmpRS] {
+
+			possibleFriends = append(possibleFriends, uid)
+			evaluatedFriendShipt[tmpRS] = true
+			flagRepetitions = true
+
+			if FriendMap[tmpRS] {
+				user, err := FindUserByID(UserList, uid)
+				if err != nil {
+					logger.Log("FindTwoUserRelationShip", err)
+				}
+				return []User{user}, counter
+			}
 		}
-		return resultArray, counter
 	}
-	// TODO: end of the for loop
 
-	// TODO: Call a function which give you the ID's of the friends of the friends
-	// in the already passed function so you should call the function again
-	// This must be unique friends and not evaluated comparision already
-	// for k1, v1 := range FriendMap {
+	// Return empty if the list of comparation has already been compared
+	if !flagRepetitions {
+		logger.Log("FindTwoUserRelationShip", "Circular Comparation. Must Break of tryng to find")
+		return []User{}, -1
+	}
 
-	// }
+	for _, v := range possibleFriends {
+		newPossibleFriends = append(newPossibleFriends, GetFriendsID(v)...)
+	}
 
-	return resultArray, 0
+	return FindTwoUserRelationShip(friends, evaluatedFriendShipt, user, newPossibleFriends, counter+1, treshold)
+
 }
 
 // FilterFriends return a slice of type Friend.
