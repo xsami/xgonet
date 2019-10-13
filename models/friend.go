@@ -94,17 +94,17 @@ func ValidateFriendShip(friends []Friend, userIDA int, userIDB int) bool {
 }
 
 func GetFriendsID(id int) []int {
+
 	result := []int{}
-	var tmp int
 	for _, v := range FriendList {
 		if v.Accepted {
 			if v.UserIDFrom == id {
-				tmp = v.UserIDTo
-			} else {
-				tmp = v.UserIDFrom
+				result = append(result, v.UserIDTo)
+			} else if v.UserIDTo == id {
+				result = append(result, v.UserIDFrom)
 			}
 		}
-		result = append(result, tmp)
+
 	}
 	return result
 }
