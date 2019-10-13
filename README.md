@@ -36,7 +36,7 @@ The application contain a diverse amount of functionalities which can be perform
 ```
 $ go build .
 $ ./xgonet -h
-$ ./xgonet -d true -D /Users/<your_user>/go/src/github.com/xsami/xgonet/mock_data/test_data1.json -f FindTwoUserRelationShip -p username1:mhallihan0 -p username2:mbrereton1
+$ ./xgonet -d true -D mock_data/test_data1.json -f findtwouserrelationship -p username1:mhallihan0 -p username2:mbrereton1
 ```
 
 ##### Example on Windows
@@ -44,7 +44,7 @@ Note that for windows build the argument prefix is `/` instead of `-`
 ```
 $ go build .
 $ xgonet.exe /h
-$ xgonet.exe /d true /D C:\Users\<your_user>\go\src\github.com\xsami\xgonet\mock_data\test_data1.json /f FindTwoUserRelationShip /p username1:mhallihan0 /p username2:mbrereton1
+$ xgonet.exe /d true /D mock_data\test_data1.json /f findtwouserrelationship /p username1:mhallihan0 /p username2:mbrereton1
 ```
 
 ### Functions
