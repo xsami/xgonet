@@ -69,6 +69,12 @@ func TestFindUserByID(t *testing.T) {
 
 func BenchmarkFindUserByID(b *testing.B) {
 
+	userListLen := len(testUserList)
+	for i := 0; i < b.N; i++ {
+		userID := testUserList[i%userListLen].ID
+		FindUserByID(testUserList, userID)
+	}
+
 }
 
 func TestFindUserByUsername(t *testing.T) {
@@ -94,6 +100,12 @@ func TestFindUserByUsername(t *testing.T) {
 }
 
 func BenchmarkFindUserByUsername(b *testing.B) {
+
+	userListLen := len(testUserList)
+	for i := 0; i < b.N; i++ {
+		username := testUserList[i%userListLen].Username
+		FindUserByUsername(testUserList, username)
+	}
 
 }
 
@@ -121,6 +133,12 @@ func TestFindUserByEmail(t *testing.T) {
 
 func BenchmarkFindUserByEmail(b *testing.B) {
 
+	userListLen := len(testUserList)
+	for i := 0; i < b.N; i++ {
+		email := testUserList[i%userListLen].Email
+		FindUserByEmail(testUserList, email)
+	}
+
 }
 
 func TestFindUsersByFirstName(t *testing.T) {
@@ -137,6 +155,12 @@ func TestFindUsersByFirstName(t *testing.T) {
 }
 
 func BenchmarkFindUsersByFirstName(b *testing.B) {
+
+	userListLen := len(testUserList)
+	for i := 0; i < b.N; i++ {
+		firstName := testUserList[i%userListLen].FirstName
+		FindUsersByFirstName(testUserList, firstName)
+	}
 
 }
 
@@ -155,6 +179,12 @@ func TestFindUsersByLastName(t *testing.T) {
 
 func BenchmarkFindUsersByLastName(b *testing.B) {
 
+	userListLen := len(testUserList)
+	for i := 0; i < b.N; i++ {
+		lastName := testUserList[i%userListLen].LastName
+		FindUsersByLastName(testUserList, lastName)
+	}
+
 }
 func TestFindUsersByGender(t *testing.T) {
 
@@ -170,5 +200,11 @@ func TestFindUsersByGender(t *testing.T) {
 }
 
 func BenchmarkFindUsersByGender(b *testing.B) {
+
+	userListLen := len(testUserList)
+	for i := 0; i < b.N; i++ {
+		gender := testUserList[i%userListLen].Gender
+		FindUsersByGender(testUserList, gender)
+	}
 
 }

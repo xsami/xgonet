@@ -34,3 +34,4 @@ before_script:
 script:
   - golangci-lint run       # run a bunch of code checkers/linters in parallel
   - go test ./...           # Run all the tests cases
+  - go test -bench=. ./...  # Run all the benchmark test
