@@ -14,11 +14,15 @@ type Friend struct {
 	Accepted   bool `json:"accepted"`
 }
 
+// RelateFriend is a struct used to relate user friendship
 type RelateFriend struct {
 	UserIDA int
 	UserIDB int
 }
 
+// BuildFriendMap receive a list of type Friend
+// then it return a map of type RelateFriend
+// with the unique friend relationships
 func BuildFriendMap(friends []Friend) (resultMap map[RelateFriend]bool) {
 
 	acceptedFriend := FilterFriends(friends, func(f Friend) bool { // Filter only by users that are active
@@ -32,9 +36,12 @@ func BuildFriendMap(friends []Friend) (resultMap map[RelateFriend]bool) {
 
 		resultMap[rFriend] = value.Accepted
 	}
+
 	return resultMap
 }
 
+// NewRelatedFriend creates a new RelateFriend relationship
+// and this must be used to create a RelateFriend object
 func NewRelatedFriend(u1, u2 int) RelateFriend {
 	uA, uB := u1, u2
 	if u1 < u2 {
@@ -93,6 +100,8 @@ func ValidateFriendShip(friends []Friend, userIDA int, userIDB int) bool {
 	return false
 }
 
+// GetFriendsID return a list of IDs
+// with the friends of a given userID
 func GetFriendsID(id int) []int {
 
 	result := []int{}
@@ -106,6 +115,7 @@ func GetFriendsID(id int) []int {
 		}
 
 	}
+
 	return result
 }
 
