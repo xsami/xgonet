@@ -2,20 +2,61 @@ package models
 
 import "testing"
 
-var userList = []User{}
+// Global testUserList for testing userlist functionality
+var testUserList = []User{
+	{
+		ID:        1,
+		Username:  "mhallihan0",
+		FirstName: "Marla",
+		LastName:  "Hallihan",
+		Email:     "mhallihan0@google.co.jp",
+		Gender:    "F",
+		Active:    true},
+	{
+		ID:        2,
+		Username:  "mbrereton1",
+		FirstName: "Mozes",
+		LastName:  "Brereton",
+		Email:     "mbrereton1@icq.com",
+		Gender:    "M",
+		Active:    true},
+	{
+		ID:        3,
+		Username:  "klaverack2",
+		FirstName: "Kenny",
+		LastName:  "Laverack",
+		Email:     "klaverack2@pinterest.com",
+		Gender:    "M",
+		Active:    true},
+	{
+		ID:        4,
+		Username:  "mbreit3",
+		FirstName: "Marla",
+		LastName:  "Breit",
+		Email:     "mbreit3@huffingtonpost.com",
+		Gender:    "F",
+		Active:    true},
+	{
+		ID:        5,
+		Username:  "lquirke4",
+		FirstName: "Lorant",
+		LastName:  "Quirke",
+		Email:     "lquirke4@bluehost.com",
+		Gender:    "M",
+		Active:    true}}
 
 func TestFindUserByID(t *testing.T) {
 
 	dummyUser := User{
 		ID:        1,
-		Username:  "xsami",
-		FirstName: "first_name",
-		LastName:  "last_name",
-		Email:     "xsami@xgonet.com",
-		Gender:    "M",
+		Username:  "mhallihan0",
+		FirstName: "Marla",
+		LastName:  "Hallihan",
+		Email:     "mhallihan0@google.co.jp",
+		Gender:    "F",
 		Active:    true}
 
-	user, err := FindUserByID(userList, dummyUser.ID)
+	user, err := FindUserByID(testUserList, dummyUser.ID)
 
 	if err != nil {
 		t.Error(err)
@@ -33,15 +74,15 @@ func BenchmarkFindUserByID(b *testing.B) {
 func TestFindUserByUsername(t *testing.T) {
 
 	dummyUser := User{
-		ID:        1,
-		Username:  "xsami",
-		FirstName: "first_name",
-		LastName:  "last_name",
-		Email:     "xsami@xgonet.com",
+		ID:        5,
+		Username:  "lquirke4",
+		FirstName: "Lorant",
+		LastName:  "Quirke",
+		Email:     "lquirke4@bluehost.com",
 		Gender:    "M",
 		Active:    true}
 
-	user, err := FindUserByUsername(userList, dummyUser.Username)
+	user, err := FindUserByUsername(testUserList, dummyUser.Username)
 
 	if err != nil {
 		t.Error(err)
@@ -59,15 +100,15 @@ func BenchmarkFindUserByUsername(b *testing.B) {
 func TestFindUserByEmail(t *testing.T) {
 
 	dummyUser := User{
-		ID:        1,
-		Username:  "xsami",
-		FirstName: "first_name",
-		LastName:  "last_name",
-		Email:     "xsami@xgonet.com",
-		Gender:    "M",
+		ID:        4,
+		Username:  "mbreit3",
+		FirstName: "Marla",
+		LastName:  "Breit",
+		Email:     "mbreit3@huffingtonpost.com",
+		Gender:    "F",
 		Active:    true}
 
-	user, err := FindUserByEmail(userList, dummyUser.Email)
+	user, err := FindUserByEmail(testUserList, dummyUser.Email)
 
 	if err != nil {
 		t.Error(err)
@@ -79,5 +120,55 @@ func TestFindUserByEmail(t *testing.T) {
 }
 
 func BenchmarkFindUserByEmail(b *testing.B) {
+
+}
+
+func TestFindUsersByFirstName(t *testing.T) {
+
+	const firstName = "Marla"
+	const marlasCnt = 2
+
+	usersResult := FindUsersByFirstName(testUserList, firstName)
+	resultAmount := len(usersResult)
+
+	if resultAmount != marlasCnt {
+		t.Errorf("Incorrect amount of users with first name: %v.\nThe program found %v instead of %v", firstName, resultAmount, marlasCnt)
+	}
+}
+
+func BenchmarkFindUsersByFirstName(b *testing.B) {
+
+}
+
+func TestFindUsersByLastName(t *testing.T) {
+
+	const firstName = "Laverack"
+	const laverCnt = 1
+
+	usersResult := FindUsersByLastName(testUserList, firstName)
+	resultAmount := len(usersResult)
+
+	if resultAmount != laverCnt {
+		t.Errorf("Incorrect amount of users with last name: %v.\nThe program found %v instead of %v", firstName, resultAmount, laverCnt)
+	}
+}
+
+func BenchmarkFindUsersByLastName(b *testing.B) {
+
+}
+func TestFindUsersByGender(t *testing.T) {
+
+	const gender = "F"
+	const laverCnt = 2
+
+	usersResult := FindUsersByGender(testUserList, gender)
+	resultAmount := len(usersResult)
+
+	if resultAmount != laverCnt {
+		t.Errorf("Incorrect amount of users with gender: %v.\nThe program found %v instead of %v", gender, resultAmount, laverCnt)
+	}
+}
+
+func BenchmarkFindUsersByGender(b *testing.B) {
 
 }

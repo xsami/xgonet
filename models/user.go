@@ -75,26 +75,15 @@ func FindUsersByLastName(users []User, lastName string) []User {
 
 // FindUsersByGender return a slice of users with the given gender
 func FindUsersByGender(users []User, gender string) []User {
-
 	return FilterUsers(users, func(u User) bool {
 		return u.Gender == gender
 	})
-
-}
-
-// FindActiveUsers return a slice of user with status active = true
-func FindActiveUsers(users []User) []User {
-
-	return FilterUsers(users, func(u User) bool {
-		return u.Active == true
-	})
-
 }
 
 // FilterUsers return a slice of type User.
 // Given a slice of type User, this function evaluate the condition
 // that is passed as parameter and return a new slice of slice
-// where the condition meet the evaluator
+// where the condition meet the evaluator and if the user is active
 func FilterUsers(users []User, evaluator func(u User) bool) []User {
 
 	resultArray := []User{}
