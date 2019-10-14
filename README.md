@@ -1,5 +1,11 @@
 # XGONET
 
+[![Go Report Card](https://goreportcard.com/badge/xsami/xgonet)](https://goreportcard.com/report/xsami/xgonet)
+[![GoDoc](https://godoc.org/xsami/xgonet?status.svg)](https://godoc.org/xsami/xgonet)
+[![CircleCI](https://circleci.com/gh/xsami/xgonet.svg?style=svg)](https://circleci.com/gh/xsami/xgonet)
+[![Build Status](https://travis-ci.com/xsami/xgonet.svg?branch=master)](https://travis-ci.com/xsami/xgonet)
+
+
 A Social Network built with `go`.
 
 ### Configuration
