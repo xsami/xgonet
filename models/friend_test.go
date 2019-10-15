@@ -141,7 +141,6 @@ func BenchmarkValidateFriendShip(b *testing.B) {
 
 func TestFindTwoUserRelationShip(t *testing.T) {
 	injectUser()
-	var tresHold uint
 
 	userA := User{
 		ID:        1,
@@ -160,7 +159,7 @@ func TestFindTwoUserRelationShip(t *testing.T) {
 		Gender:    "M",
 		Active:    true}
 
-	res, counter := FindTwoUserRelationShip(FriendMap, make(map[RelateFriend]bool, len(FriendMap)), userA, []int{userB.ID}, 0, tresHold)
+	res, counter := FindTwoUserRelationShip(FriendMap, make(map[RelateFriend]bool, len(FriendMap)), userA, []int{userB.ID}, 0, 0)
 
 	if counter != 0 {
 		t.Error("Failed on the response for friendship: ", res, " : ", counter)
@@ -170,12 +169,11 @@ func TestFindTwoUserRelationShip(t *testing.T) {
 func BenchmarkFindTwoUserRelationShip(b *testing.B) {
 
 	injectUser()
-	var tresHold uint = 0
 	lenUserList := len(UserList)
 
 	for i := 0; i < b.N; i++ {
 		userA := UserList[i%lenUserList]
 		userB := UserList[(i+1)%lenUserList]
-		FindTwoUserRelationShip(FriendMap, make(map[RelateFriend]bool, len(FriendMap)), userA, []int{userB.ID}, 0, tresHold)
+		FindTwoUserRelationShip(FriendMap, make(map[RelateFriend]bool, len(FriendMap)), userA, []int{userB.ID}, 0, 0)
 	}
 }

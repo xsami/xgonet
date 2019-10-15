@@ -27,7 +27,8 @@ jobs: # basic units of work in a run
       - run: go get github.com/jstemmer/go-junit-report
 
 
-      - run: make # pull and build dependencies for the project
+      - run: go get ./... # pull and build dependencies for the project
+      - run: go build . # build the project
 
       - save_cache: # Store cache in the /go/pkg directory
           key: v1-pkg-cache
@@ -37,7 +38,8 @@ jobs: # basic units of work in a run
       - run:
           name: Validate service is working
           command: |
-            ./xgonet -d true -D mock_data/test_data1.json -f findtwouserrelationship -p username1:mhallihan0 -p username2:mbrereton1
+            go test ./...
+            go test bechmark=. ./...
 
       - store_artifacts: # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: /tmp/test-results
