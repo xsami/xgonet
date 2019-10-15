@@ -39,7 +39,7 @@ jobs: # basic units of work in a run
           name: Validate service is working
           command: |
             go test ./...
-            go test bechmark=. ./...
+            go test -bench=.
 
       - store_artifacts: # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: /tmp/test-results
