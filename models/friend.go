@@ -93,11 +93,7 @@ func ValidateFriendShip(friends []Friend, userIDA int, userIDB int) bool {
 			(f.UserIDFrom == userIDB && f.UserIDTo == userIDA))
 	})
 
-	if len(resultFriends) > 0 {
-		return true
-	}
-
-	return false
+	return len(resultFriends) > 0
 }
 
 // GetFriendsID return a list of IDs
