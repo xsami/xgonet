@@ -10,7 +10,7 @@ A Social Network built with `go`.
 
 ### Configuration
 
-Current version used for the development of the application is go1.11.4 but it would probably be compatible with any version >= go1.11.X 
+Current version used for the development of the application is `go1.11.4` but it would probably be compatible with any version >= `go1.11.X`
 
 ### Usage
 
