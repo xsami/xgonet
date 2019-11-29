@@ -69,3 +69,7 @@ This section contain the functions that can be called in this application, which
 2. The program will use a flag "username1" and "username2" to determine if the 2 usernames are connected via their friend list.
 3. The program will output how much time it took to determine if the 2 usernames are connected and how many users it had to traverse to find the answer.
 4. Include any kind of automated tests.
+
+
+### TODO
+Include contributions and implementation for more methods of finding
